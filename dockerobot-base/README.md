@@ -6,6 +6,6 @@ A core image containing important core robotic frameworks, libraries, and progra
 
 Running the image using the following command starts up a jupyter notebook server that can be accessed through the host browser:
 
-'''bash
+```bash
 sudo docker run -it --network host robocaster/dockerobot-base:v1.0
-'''
+```
