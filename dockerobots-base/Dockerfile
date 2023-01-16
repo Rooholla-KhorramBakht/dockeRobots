@@ -38,5 +38,6 @@ RUN cd /home/ && git clone https://github.com/lcm-proj/lcm.git && cd lcm && mkdi
 
 # Start the image with a jupyter notebook
 # CMD source /opt/ros/foxy/setup.bash && export PATH=$PATH:/opt/julia-1.8.1/bin/ && jupyter notebook -y --no-browser --allow-root --ip='*' --NotebookApp.token='' --NotebookApp.password=''
+RUN echo 'export PYTHONPATH=$PYTHONPATH:/usr/local/lib/python3/dist-packages/' >> ~/.bashrc
 RUN source /opt/ros/foxy/setup.bash && export PATH=$PATH:/opt/julia-1.8.1/bin/
 CMD /bin/bash
