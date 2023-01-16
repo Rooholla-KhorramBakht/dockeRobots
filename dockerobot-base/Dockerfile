@@ -31,7 +31,7 @@ RUN /opt/julia-1.8.1/bin/julia -e 'using Pkg; Pkg.add("IJulia"); Pkg.add("PyCall
 
 
 # Install important scientifc computation packages and some commonly used requirements
-RUN python3 -m pip install numpy scipy pybullet  jupyterlab lark catkin_pkg nose==1.3.7 empy symforce pyzmq pybullet symforce
+RUN python3 -m pip install numpy scipy pybullet  jupyterlab lark catkin_pkg nose==1.3.7 empy symforce pyzmq pybullet
 RUN apt-get install -y ros-foxy-pinocchio pybind11-dev protobuf-compiler 
  # Compile and Install LCM
 RUN cd /home/ && git clone https://github.com/lcm-proj/lcm.git && cd lcm && mkdir build && cd build && cmake .. && make -j"$(nproc)" && make install 
