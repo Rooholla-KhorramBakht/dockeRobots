@@ -20,7 +20,9 @@ RUN cd /home/ && curl -O https://bootstrap.pypa.io/get-pip.py && /bin/python3 ge
 # Install Julia and pycall
 RUN cd /opt/ && curl -O https://julialang-s3.julialang.org/bin/linux/x64/1.8/julia-1.8.1-linux-x86_64.tar.gz && tar zxvf julia-1.8.1-linux-x86_64.tar.gz
 
-RUN export PATH=$PATH:/opt/julia-1.8.1/bin/ && python3 -m pip install julia
+RUN echo 'export PATH=$PATH:/opt/julia-1.8.1/bin/' >> ~/.bashrc && source ~/.bashrc
+ 
+RUN python3 -m pip install julia
 
 RUN echo 'import julia' > julia_pycall_install.py && echo 'julia.install()' >> julia_pycall_install.py && export PATH=$PATH:/opt/julia-1.8.1/bin/ && python3 julia_pycall_install.py
 
@@ -36,4 +38,5 @@ RUN cd /home/ && git clone https://github.com/lcm-proj/lcm.git && cd lcm && mkdi
 
 # Start the image with a jupyter notebook
 # CMD source /opt/ros/foxy/setup.bash && export PATH=$PATH:/opt/julia-1.8.1/bin/ && jupyter notebook -y --no-browser --allow-root --ip='*' --NotebookApp.token='' --NotebookApp.password=''
-CMD source /opt/ros/foxy/setup.bash && export PATH=$PATH:/opt/julia-1.8.1/bin/ && /bin/bash
+RUN source /opt/ros/foxy/setup.bash && export PATH=$PATH:/opt/julia-1.8.1/bin/
+CMD /bin/bash
