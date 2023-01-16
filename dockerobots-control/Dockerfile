@@ -1,4 +1,4 @@
-FROM robocaster/dockerobots-base:v1.0
+FROM robocaster/dockerobots-base:amd64
 SHELL ["/bin/bash", "-c"]
 
 # Install some control related Julia packages
