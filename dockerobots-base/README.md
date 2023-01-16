@@ -11,7 +11,7 @@ docker build -t <image_name:tag> .
 Equivalently, you could directly used the prebuilt image on Dockerbub:
 
 ```
-docker run -it robocaster/dockerobot-base:v1.0
+docker run -it robocaster/dockerobots-base:v1.0
 ```
 
 ## Start the Image
