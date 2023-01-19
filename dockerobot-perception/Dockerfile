@@ -25,7 +25,8 @@ RUN mkdir ~/opencv_build && cd ~/opencv_build \
 
 RUN cd ~/opencv_build/opencv && mkdir -p build && cd build 
 
-RUN cmake -D CMAKE_BUILD_TYPE=RELEASE \
+RUN cd ~/opencv_build/opencv && mkdir -p build && cd build  && \ 
+    cmake -D CMAKE_BUILD_TYPE=RELEASE \
     -D CMAKE_INSTALL_PREFIX=/usr/local \
     -D INSTALL_C_EXAMPLES=ON \
     -D INSTALL_PYTHON_EXAMPLES=ON \
@@ -38,12 +39,17 @@ RUN cmake -D CMAKE_BUILD_TYPE=RELEASE \
 RUN python3 -m pip install casadi
 
 # Install librealsense drivers
-RUN apt-get install -y python3-sphinx build-essentials git libssl-dev libusb-1.0-0-dev pkg-config libgtk-3-dev
+RUN apt-get install -y python3-sphinx build-essential git libssl-dev libusb-1.0-0-dev pkg-config libgtk-3-dev
 RUN python3 -m pip install sphinx
 RUN cd ~ && git clone https://github.com/IntelRealSense/librealsense && cd librealsense && mkdir build && cd build && cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_PYTHON_BINDINGS=ON .. && make -j8 && make install 
-RUN rm -r librealsense
+RUN rm -r ~/librealsense
 
 # Install Velodyne ROS drivers
-RUN cd ~ && mkdir velodyne && cd velodyne && mkdir src && cd src && git clone https://github.com/ros-drivers/velodyne \
-git checkout origin/ros2 && cd .. && rosdep install --from-path src --ignore-src && colcon build 
-RUN echo "source ~/velodyne/install/setup.bash" >> ~/.bashrc
+# RUN cd ~ && mkdir velodyne && cd velodyne && mkdir src && cd src && git clone https://github.com/ros-drivers/velodyne.git && cd velodyne && git checkout origin/ros2 && \
+#  cd ../.. && rosdep install -y --from-path src --ignore-src && colcon build
+# RUN echo "source ~/velodyne/install/setup.bash" >> ~/.bashrc
+
+RUN cd /opt/ && wget https://github.com/coder/code-server/releases/download/v4.9.1/code-server_4.9.1_amd64.deb
+RUN dpkg -i /opt/code-server_4.9.1_amd64.deb && rm /opt/code-server_4.9.1_amd64.deb
+
+CMD code-server  --auth none /root
