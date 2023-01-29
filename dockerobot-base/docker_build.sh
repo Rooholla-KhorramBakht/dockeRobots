@@ -1,1 +1,0 @@
-sudo docker build -t robocaster/dockerobot-base:amd64 .

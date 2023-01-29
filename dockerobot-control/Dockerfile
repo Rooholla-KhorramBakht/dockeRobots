@@ -1,4 +1,5 @@
-FROM robocaster/dockerobot-base:amd64
+ARG BASE_IMAGE
+FROM ${BASE_IMAGE}
 SHELL ["/bin/bash", "-c"]
 
 # Install some control related Julia packages

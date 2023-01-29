@@ -1,4 +1,5 @@
-FROM robocaster/dockerobot-base:amd64
+ARG BASE_IMAGE
+FROM ${BASE_IMAGE}
 
 #Install GTSAM
 RUN apt-get update && apt-get install -y libboost-all-dev cmake libtbb-dev 
