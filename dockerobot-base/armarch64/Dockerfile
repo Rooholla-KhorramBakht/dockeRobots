@@ -36,8 +36,7 @@ RUN cd /home/ && curl -O https://bootstrap.pypa.io/get-pip.py && /bin/python3 ge
 
 
 # Install Julia and pycall
-RUN cd /opt/ && curl -O https://julialang-s3.julialang.org/bin/linux/x64/1.8/julia-1.8.1-linux-x86_64.tar.gz && tar zxvf julia-1.8.1-linux-x86_64.tar.gz
-
+RUN cd /opt/ && wget https://julialang-s3.julialang.org/bin/linux/aarch64/1.8/julia-1.8.1-linux-aarch64.tar.gz && tar zxvf julia-1.8.1-linux-aarch64.tar.gz
 RUN echo 'export PATH=$PATH:/opt/julia-1.8.1/bin/' >> ~/.bashrc && source ~/.bashrc
  
 RUN python3 -m pip install julia
@@ -51,7 +50,7 @@ RUN /opt/julia-1.8.1/bin/julia -e 'using Pkg; Pkg.add("IJulia"); Pkg.add("PyCall
 # Install important scientifc computation packages and some commonly used requirements
 RUN python3 -m pip install --upgrade pip
 RUN python3 -m pip install markupsafe
-RUN python3 -m pip install scipy pybullet lark catkin_pkg nose==1.3.7 empy symforce pyzmq matplotlib
+RUN python3 -m pip install scipy pybullet lark catkin_pkg nose==1.3.7 empy pyzmq matplotlib
 RUN apt-get install -y --no-install-recommends ros-${ROS_DISTRO}-pinocchio pybind11-dev protobuf-compiler 
  # Compile and Install LCM
 RUN cd /home/ && git clone https://github.com/lcm-proj/lcm.git && cd lcm && mkdir build && cd build && cmake .. && make -j"$(nproc)" && make install 
